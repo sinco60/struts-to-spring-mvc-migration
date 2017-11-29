@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="10 seconds">
+     
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>
+				%d{yyyy-dd-MM HH:mm:ss z}|%-5level|%-50logger{50} - %msg%n
+			</pattern>
+		</layout>
+	</appender>
+
+
+	<appender name="ROLLING FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${catalina.base}/logs/appname_%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>20</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d{yyyy-dd-MM HH:mm:ss z}|%-5level|%-50logger{50} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="ROLLING FILE" />
+	</root>
+
+	
+
+	<!-- Logging categories that can be very verbose but not usually useful to us -->
+	<logger name="org.springframework" level="INFO" />
+	<logger name="org.apache" level="WARN" />
+
+
+</configuration>
